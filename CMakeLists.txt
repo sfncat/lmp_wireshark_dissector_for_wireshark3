@@ -21,16 +21,27 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 
-project(btbb-wireshark-plugin C)
+cmake_policy(SET CMP0048 NEW)
+project(btbb VERSION 0.0.1 DESCRIPTION "btbb-wireshark-plugin" LANGUAGES C)
 
-cmake_minimum_required(VERSION 2.6)
+if(WIN32)
+	# Needed for add_custom_command() WORKING_DIRECTORY generator expressions
+	cmake_minimum_required(VERSION 3.13)
+else()
+	cmake_minimum_required(VERSION 3.10)
+endif()
+
 set(CMAKE_BACKWARDS_COMPATIBILITY 2.6)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-IF ( NOT CMAKE_INSTALL_LIBDIR )
-  set(CMAKE_INSTALL_LIBDIR ~/.local/lib/wireshark/plugins/2.6/epan)
-ENDIF ( NOT CMAKE_INSTALL_LIBDIR )
-MESSAGE (STATUS "Plugin will be installed in: ${CMAKE_INSTALL_LIBDIR}")
+# IF ( NOT CMAKE_INSTALL_LIBDIR )
+#   set(CMAKE_INSTALL_LIBDIR ~/.local/lib/wireshark/plugins/2.6/epan)
+# ENDIF ( NOT CMAKE_INSTALL_LIBDIR )
+# MESSAGE (STATUS "Plugin will be installed in: ${CMAKE_INSTALL_LIBDIR}")
+# add_custom_target(copy_plugin
+# 	COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:btbb> "${Wireshark_PLUGIN_INSTALL_DIR}/epan"
+# 	MESSAGE(STATUS "Installing plugin to: ${Wireshark_PLUGIN_INSTALL_DIR}/epan")
+# )
 
 INCLUDE(UseMakePluginReg)
   
@@ -39,7 +50,7 @@ set(GLIB2_MIN_VERSION 2.4.0)
 find_package(GLIB2)
 include_directories (${GLIB2_INCLUDE_DIRS})
 
-find_package(Wireshark)
+find_package(Wireshark CONFIG REQUIRED)
 include_directories (${WIRESHARK_INCLUDE_DIRS})
 
 set(LINK_MODE_LIB SHARED)
