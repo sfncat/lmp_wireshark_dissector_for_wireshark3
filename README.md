@@ -59,3 +59,10 @@ the `coloring-rules` folder, e.g., import `lmp` to colorize the LMP protocol.
 open the sample-nexmaster-galaxys9slave.pcapng(fork form https://github.com/francozappa/knob/tree/master/poc-internalblue) file in pcapng folder.
 
 ![image-20220623162928427](README.assets/image-20220623162928427.png)
+
+If it display like this
+
+![image-20220623174031088](README.assets/image-20220623174031088.png) 
+
+Open View -> Coloring Rules... , and OK,it will display normal.
+
